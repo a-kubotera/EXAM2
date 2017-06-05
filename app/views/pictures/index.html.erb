@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pictures</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody class="product-index">
+    <%= render "index" %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Picture', new_picture_path %>

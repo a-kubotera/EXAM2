@@ -1,0 +1,15 @@
+<% @pictures.each do |picture| %>
+  <tr>
+    <td><%= picture.name %></td>
+    <td>
+      <% if picture.image? %>
+        <div class="thumbnail">
+        <%= image_tag picture.image.url %>
+      </div>
+      <% end %>
+    </td>
+    <td><%= link_to 'Show', picture , remote: true%></td>
+    <td><%= link_to 'Edit', edit_picture_path(picture), remote: true %></td>
+    <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
