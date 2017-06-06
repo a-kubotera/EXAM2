@@ -1,14 +1,14 @@
-<!--
 <script type="text/javascript">
 $(function() {
-  $('#upload1').uploadThumbs({
+  $('#picture_image').uploadThumbs({
     position: '#preview1'
   });
 });
-
 </script>
--->
-<%= form_for(@picture) do |f| %>
+
+<div class="modal-dialog">
+  <div class="modal-content">
+<%= form_for(@picture, remote: true, authenticity_token: true) do |f| %>
   <% if @picture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
@@ -29,10 +29,9 @@ $(function() {
       <%= image_tag @picture.image.url %>
     </div>
     <% else %>
-      <input type="file" id="upload1" name="images[]" multiple="multiple" />
-
+      <%= f.file_field :image %>
     <% end %><br>
-<p id="preview1"></p>
+    <p id="preview1"></p>
     <%= f.label :image %><br>
     <%= f.hidden_field :image_cache %>
   </div>
@@ -51,3 +50,5 @@ $(function() {
     <%= f.submit %>
   </div>
 <% end %>
+</div>
+</div>

@@ -10,10 +10,25 @@
   </thead>
 
   <tbody class="product-index">
-    <%= render "index" %>
+    <% @pictures.each do |picture| %>
+      <tr>
+        <td><%= picture.name %></td>
+        <td>
+          <% if picture.image? %>
+            <div class="thumbnail">
+            <%= image_tag picture.image.url %>
+          </div>
+          <% end %>
+        </td>
+        <td><%= link_to 'Show', picture%></td>
+        <td><%= link_to 'Edit', edit_picture_path(picture) %></td>
+        <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Picture', new_picture_path %>
+<div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<%= link_to 'New Picture', new_picture_path , remote: true, class: "btn btn-lg btn-primary"%>

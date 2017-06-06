@@ -16,6 +16,7 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   def new
     @picture = Picture.new
+
   end
 
   # GET /pictures/1/edit
@@ -25,13 +26,21 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
+    
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
-    # user_idを代入する
-    if @picture.save
-      redirect_to pictures_path, notice: "投稿しました"
-    else
-      render 'new'
+
+    respond_to do |format|
+      if @picture.save
+        format.html { redirect_to @picture, notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: @picture }
+        format.js { @status = "success"}
+
+      else
+        format.html { render :new }
+        format.json { render json: @picture.errors, status: :unprocessable_entity }
+        format.js { @status = "fail" }
+      end
     end
   end
   # PATCH/PUT /pictures/1
@@ -68,6 +77,6 @@ class PicturesController < ApplicationController
 
     def picture_params
       # params.require(:picture).permit(:date)
-      params.require(:picture).permit(:date, :image, :image_cache, :remove_image)
+      params.require(:picture).permit(:name,:title,:content,:date, :image, :image_cache, :remove_image)
     end
 end
