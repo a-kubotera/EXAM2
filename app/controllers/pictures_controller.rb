@@ -21,34 +21,34 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
+
   end
 
   # POST /pictures
   # POST /pictures.json
   def create
-    
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
-
     respond_to do |format|
       if @picture.save
-        format.html { redirect_to @picture, notice: 'User was successfully created.' }
+        format.html { redirect_to pictures_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @picture }
         format.js { @status = "success"}
-
+        binding.pry
       else
         format.html { render :new }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
         format.js { @status = "fail" }
       end
     end
+
   end
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json
   def update
     respond_to do |format|
       if @picture.update(picture_params)
-        format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
+        format.html { redirect_to pictures_path, notice: 'Picture was successfully updated.' }
         format.json { render :show, status: :ok, location: @picture }
       else
         format.html { render :edit }
