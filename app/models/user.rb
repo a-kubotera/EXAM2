@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
   mount_uploader :avatar, AvatarUploader #deviseの設定配下に追記
-  has_many :pictures
+  has_many:pictures
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.find_by(email: auth.info.email)
 
@@ -17,6 +18,7 @@ class User < ActiveRecord::Base
           image_url:   auth.info.image,
           password: Devise.friendly_token[0, 20]
       )
+
       user.skip_confirmation!
       user.save(validate: false)
     end

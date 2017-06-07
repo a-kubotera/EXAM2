@@ -12,7 +12,12 @@
   <tbody class="product-index">
     <% @pictures.each do |picture| %>
       <tr>
-        <td><%= picture.name %></td>
+        <td>
+          <div class="col-xs-3">
+            <%= image_tag picture.user.avatar, :class => "setIcon" %>
+            <p><%= picture.user.name  %></p>
+          </div>
+        </td>
         <td>
           <% if picture.image? %>
             <div class="thumbnail">
