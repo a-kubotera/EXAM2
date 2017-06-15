@@ -27,6 +27,7 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
+    @pictures = Picture.all
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
     respond_to do |format|
@@ -34,7 +35,7 @@ class PicturesController < ApplicationController
         format.html { redirect_to pictures_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @picture }
         format.js { @status = "success"}
-        binding.pry
+        #binding.pry
       else
         format.html { render :new }
         format.json { render json: @picture.errors, status: :unprocessable_entity }

@@ -9,7 +9,7 @@ $(function() {
 
 <div class="modal-dialog">
   <div class="modal-content">
-<%= form_for(@picture, remote: true, authenticity_token: true) do |f| %>
+<%= form_for(@picture, authenticity_token: true) do |f| %>
   <% if @picture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
