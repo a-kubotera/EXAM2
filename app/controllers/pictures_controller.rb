@@ -27,7 +27,6 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
-    @pictures = Picture.all
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
     respond_to do |format|
