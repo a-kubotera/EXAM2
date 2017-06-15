@@ -5,3 +5,26 @@
   color: white;
   padding-top: 10px;
 }
+
+//トップページ
+.topPage{
+  position: relative;
+  &img{width:100%;}
+  .msgBox{
+    @include myFont;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    color: white;
+    font-weight: bold;
+    margin:0;
+    padding:0;
+    .title{
+      @include fz_vw(13);
+      }
+    .content{
+      @include fz_vw(6);
+      @include acceptBR;
+    }
+  }
+}

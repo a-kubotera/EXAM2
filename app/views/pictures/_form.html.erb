@@ -33,7 +33,7 @@ $(function() {
       <%= f.file_field :image %>
     <% end %><br>
     <p id="preview1"></p>
-
+<%= f.hidden_field :image_cache %>
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %>
     <br>

@@ -14,6 +14,6 @@
  *  読みこむCSSを限定し、そこにすべて記載する
  *= require normalize.css
  *= require bootstrap_and_overrides.css
- *= require mydesign.scss
+  *= require mydesign.scss
  *= require_self
  */

@@ -1,21 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EXAM2</title>
+  <title>インスタグラムっぽい何か</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-  <ul>
-  <% if user_signed_in? %>
-    <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-    <li><%= link_to 'マイページ', edit_user_registration_path %></li>
-  <% else %>
-    <li><%= link_to 'ログイン', new_user_session_path  %></li>
-    <li><%= link_to 'サインアップ', new_user_registration_path %></li>
-  <% end %>
- </ul>
+
+<div class="container-fluid">
+  <div class="headerArea row" style="">
+    <ul class="list-inline"　style="">
+      <!-- ログインした状態 -->
+      <% if user_signed_in? %>
+        <!-- ログアウト -->
+        <li>
+          <%= link_to destroy_user_session_path,method: :delete ,class:"setLink" do %>
+            <i class="glyphicon glyphicon-log-out" aria-hidden="true">
+              <span class="hidden-xs">ログアウト</span>
+            </i>
+          <% end %>
+        </li>
+        <!-- マイページ -->
+        <li>
+          <%= link_to edit_user_registration_path ,class:"setLink" do %>
+            <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
+              <span class="hidden-xs">マイページ</span>
+            </i>
+          <% end %>
+        </li>
+        <!-- Picture/Index -->
+        <li>
+          <%= link_to pictures_path ,class:"setLink" do %>
+            <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
+              <span class="hidden-xs">インデックス</span>
+            </i>
+          <% end %>
+        </li>
+        <!-- 投稿ボタン -->
+        <%if current_page?(pictures_path) %>
+        <li>
+          <%= link_to new_picture_path ,remote: true,class:"setLink" do %>
+            <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
+              <span class="hidden-xs">投稿する</span>
+            </i>
+          <% end %>
+        </li>
+      <%end%>
+        <!-- dummyボタン　x2 -->
+      <li>
+        <%= link_to new_picture_path ,remote: true,class:"setLink" do %>
+          <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
+            <span class="hidden-xs">？？？？</span>
+          </i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to new_picture_path ,remote: true,class:"setLink" do %>
+          <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
+            <span class="hidden-xs">？？？？</span>
+          </i>
+        <% end %>
+      </li>
+      <!-- ログアウトした状態 -->
+      <% else %>
+        <!-- ログインボタン -->
+        <li>
+          <%= link_to new_user_session_path ,class:"setLink" do %>
+            <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
+              <span class="hidden-xs">ログイン</span>
+            </i>
+          <% end %>
+        </li>
+        <!-- サインインボタン -->
+        <li>
+          <%= link_to new_user_registration_path ,class:"setLink" do %>
+            <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
+              <span class="hidden-xs">サインアップ</span>
+            </i>
+          <% end %>
+      <% end %>
+    </ul>
+</div>
+</div>
 <%= yield %>
 
 </body>
