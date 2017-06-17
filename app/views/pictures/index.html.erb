@@ -1,14 +1,33 @@
-<p id="notice"><%= notice %></p>
+<%if notice.present? %>
+<div class="alert alert-success">
+  <%= notice %>
+</div>
+<% end %>
 
 <h1>Listing Pictures</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
 
+<div style=" padding:0px 40px;">
+<div class="row">
+
+<% @pictures.each do |picture| %>
+<div class="col-xs-12
+            col-sm-6
+            col-md-4 " style="height:400px;">
+ <!-- 枠の中身を更にグリッドで切る-->
+  <div class="row">
+    <div class="img01 waku02 bImg shadow bWidth">
+    <%= image_tag picture.image.url %>
+    </div>
+
+    <div class="">
+    </div>
+  </div>
+
+    </div>
+  <% end %>
+
+</div>
+</div>
   <tbody class="product-index">
     <% @pictures.each do |picture| %>
       <tr>
