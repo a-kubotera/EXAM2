@@ -7,51 +7,48 @@
 <h1>Listing Pictures</h1>
 
 <div style=" padding:0px 40px;">
-<div class="row">
-
-<% @pictures.each do |picture| %>
-<div class="col-xs-12
-            col-sm-6
-            col-md-4 " style="height:400px;">
- <!-- 枠の中身を更にグリッドで切る-->
   <div class="row">
-    <div class="img01 waku02 bImg shadow bWidth">
-    <%= image_tag picture.image.url %>
+    <% @pictures.each do |picture| %>
+    <div class="col-xs-12
+    col-sm-6
+    col-md-4 " style="height:400px;  width:350px;">
+    <div class="show_link">
+      <%= link_to picture,remote:true do %>
+        <div class="set_Picture img01 waku02 bImg shadow bWidth">
+          <%= image_tag picture.image.url %>
+        </div>
+       <% end %>
     </div>
-
-    <div class="">
+    <div class="index_contents row">
+      <div class="avatar col-xs-3">
+        <!-- Viewに書くことじゃない　あとで整理すること-->        
+        <% @avater = picture.user.avatar
+           if @avater.blank?
+             @avater = "no_image.png"
+           end %>
+        <%= image_tag @avater %>
+      </div>
+      <div class="name col-xs-9">
+        <% @name = picture.user.name %>
+        <% if @name.blank?
+            @name="名無しさん"
+           end
+        %>
+        <span class="name"><%= @name %></span>
+        <span class="uid">@<%=picture.user.uid%></span>
+      </div>
+      <p class="title col-xs-8"><%= picture.title %></p>
     </div>
+    <!-- 画像下にEditとDESTROYボタン(投稿者のみ)-->
+    <% if current_user.id == picture.user_id %>
+    <div class="index_btn">
+      <span class=""><%= link_to 'Edit', edit_picture_path(picture), remote: true, class: "btn btn-warning" %></span>
+      <span class=""><%= link_to 'Destroy', picture, method: :delete,class:"btn btn-danger", data: { confirm: 'Are you sure?' } %></span>
+    </div>
+    <% end %>
   </div>
-
-    </div>
   <% end %>
 
 </div>
 </div>
-  <tbody class="product-index">
-    <% @pictures.each do |picture| %>
-      <tr>
-        <td>
-          <div class="col-xs-3">
-            <%= image_tag picture.user.avatar, :class => "setIcon" %>
-            <p><%= picture.user.name  %></p>
-          </div>
-        </td>
-        <td>
-          <% if picture.image? %>
-            <div class="thumbnail">
-            <%= image_tag picture.image.url %>
-          </div>
-          <% end %>
-        </td>
-        <td><%= link_to 'Show', picture , remote: true, class: "btn btn-lg btn-primary"%></td>
-        <td><%= link_to 'Edit', edit_picture_path(picture), remote: true, class: "btn btn-lg btn-primary" %></td>
-        <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-
-  </tbody>
-</table>
-
-<br>
 <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
