@@ -16,7 +16,7 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   def new
     @picture = Picture.new
-
+    @user = User.find(current_user.id)
   end
 
   # GET /pictures/1/edit

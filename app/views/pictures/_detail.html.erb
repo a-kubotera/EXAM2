@@ -1,15 +1,20 @@
-
-<script type="text/javascript">
-$(function() {
-  $('#picture_image').uploadThumbs({
-    position: '#preview1'
-  });
-});
-</script>
-
 <div class="modal-dialog">
-  <div class="modal-content">
-    てすと
-
-  </div>
+  <div class="modal-content modal-color">
+  <%= form_for(@picture, authenticity_token: true) do |f| %>
+    <div class="details">
+        <ul class="user_data">
+          <li><%= image_tag @picture.user.avatar,class:"users_avater" %></li>
+          <li><span class="name"><%= @picture.user.name %></span><br>
+              <span class="uid">@<%= @picture.user.uid %></span></li>
+          <li><div class="imgtitle"><%= @picture.title %></div></li>
+        </ul>
+      <div class="img"><%= image_tag @picture.image.url %><%= f.hidden_field :image_cache %></div>
+      <div class="comment">
+        <span class="title">コメント</span>
+        <p><%= @picture.content %></p>
+      </div></div>
+    </div>
+  <% end %>
+</div>
+</div>
 </div>

@@ -9,51 +9,73 @@ $(function() {
 
 <div class="modal-dialog">
   <div class="modal-content">
-<%= form_for(@picture, authenticity_token: true) do |f| %>
-  <% if @picture.errors.any? %>
+    <%= form_for(@picture, authenticity_token: true) do |f| %>
+    <% if @picture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
       <ul>
-      <% @picture.errors.full_messages.each do |message| %>
+        <% @picture.errors.full_messages.each do |message| %>
         <li><%= message %></li>
-      <% end %>
+        <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
+
+    <div class="details">
+      <ul class="user_data">
+        <li><% if @user.present? %>
+          <%= image_tag @user.avatar,class:"users_avater" %></li>
+          　<% end %>
+        <li><% if @user.present? %>
+          <span class="name"><%= @user.name %></span><br>
+          <span class="uid">@<%= @user.uid %></span>
+          <% end %>
+        </li>
+          <li>
+            <div class="imgtitle"><%= f.text_field :title, class: 'form-control' %></div>
+          </li>
+        </ul>
+        <div class="img">
+          <% if @picture.image? %>
+          <div class="thumbnail">
+            <%= image_tag @picture.image.url %>
+          </div>
+          <% else %>
+          <%= f.file_field :image %>
+          <% end %><br>
+          <p id="preview1"></p>
+        </div>
+        <div class="comment">
+          <span class="title">コメント</span>
+          <p><%= f.text_field :content , class: 'form-control' %></p>
+        </div>
+      </div>
+      <%= f.hidden_field :image_cache %>
 
 
-  <!-- 追加個所 -->
-  <div class="field">
-    <%= f.label :image %>
-    <% if @picture.image? %>
-      <div class="thumbnail">
-      <%= image_tag @picture.image.url %>
+      <!-- 追加個所 -->
+      <div class="field">
+        <%= f.label :image %>
+
+        <%= f.label :title %>
+        <br>
+        <%= f.label :content %>
+        <%= f.text_field :content , class: 'form-control' %>
+      </div>
+      <div class="field">
+        <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
+        <% if @picture.persisted? && @picture.image? %>
+        <label>
+          <%= f.check_box :remove_image %>
+          画像を削除
+        </label>
+        <% end %>
+      </div>
+      <!-- 追加個所終了 -->
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+      <% end %>
     </div>
-    <% else %>
-      <%= f.file_field :image %>
-    <% end %><br>
-    <p id="preview1"></p>
-<%= f.hidden_field :image_cache %>
-    <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' %>
-    <br>
-    <%= f.label :content %>
-    <%= f.text_field :content , class: 'form-control' %>
   </div>
-  <div class="field">
-    <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
-    <% if @picture.persisted? && @picture.image? %>
-      <label>
-      <%= f.check_box :remove_image %>
-      画像を削除
-    </label>
-  <% end %>
-  </div>
-  <!-- 追加個所終了 -->
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-</div>
-</div>
