@@ -39,6 +39,7 @@ class PicturesController < ApplicationController
         format.html { render :new }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
         format.js { @status = "fail" }
+        #binding.pry
       end
     end
 

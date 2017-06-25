@@ -11,7 +11,7 @@
     <% @pictures.each do |picture| %>
     <div class="col-xs-12
     col-sm-6
-    col-md-4 " style="height:400px;  width:350px;">
+    col-md-4 " style="height:400px;  width:350px; margin-bottom:50px;">
     <div class="show_link">
       <%= link_to picture,remote:true do %>
         <div class="set_Picture img01 waku02 bImg shadow bWidth">
@@ -19,7 +19,8 @@
         </div>
        <% end %>
     </div>
-    <div class="index_contents row">
+    <div class="index_contents">
+      <p>
       <div class="avatar col-xs-3">
         <!-- Viewに書くことじゃない　あとで整理すること-->
         <% @avater = picture.user.avatar
@@ -38,6 +39,7 @@
         <span class="uid">@<%=picture.user.uid%></span>
       </div>
       <p class="title col-xs-8"><%= picture.title %></p>
+    </p>
     </div>
     <!-- 画像下にEditとDESTROYボタン(投稿者のみ)-->
     <% if current_user.id == picture.user_id %>

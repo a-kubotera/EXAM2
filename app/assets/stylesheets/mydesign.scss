@@ -123,18 +123,48 @@ body{overflow-x: hidden;}
   font: italic normal x-small/1.5em Verdana;
   color:gray;
 }
+@mixin viewcomment{
+    border: solid 1px #95ccff;
+    border-radius: 8px;
+    >span.title{
+      background-color: $modal-color;
+      position: absolute;
+      display: inline-block;
+      top: -10px;
+      left: 10px;
+      padding: 0 9px;
+      line-height: 1;
+      font-size: 14px;
+      color: #95ccff;
+      font-weight: bold;
+      }
+    >p{
+      margin: 0;
+      padding: 0;
+    }
+  }
 
 .index_btn{
   padding:18px; //枠線の太さと同じ
   position:relative;
   text-align: right;
-  bottom:155px;
+  bottom:150px;
   opacity: 0.8;
 }
+
 .index_contents
 {
-  height: 85px;
-  padding:10px 17px 30px 17px;
+  margin-top:20px;
+  height: 60px;
+  padding:5px ;
+  background: #fff0cd;
+  box-shadow: 0px 0px 0px 5px #fff0cd;
+  border: dashed 2px white;
+  color: #454545;
+ >p{
+    margin: 0;
+    padding: 0;
+}
   .name{
     @include viewname;
   }
@@ -162,6 +192,12 @@ body{overflow-x: hidden;}
   width:50px;
   height: 50px;
 }
+//詳細画面のlayout
+$modal-color:#fffaf0;
+.modal-color{
+    background:$modal-color;
+}
+
 //詳細画面のlayout
 $modal-color:#fffaf0;
 .modal-color{
@@ -222,6 +258,7 @@ $modal-color:#fffaf0;
   }
 }
 
+
 //額縁の設定 未整理
 .img01 {
   margin:0 auto;
@@ -232,9 +269,8 @@ $modal-color:#fffaf0;
 
 }
 .img01 img {
-  width:100%;
-  height:auto;
-  vertical-align:top;
+  width:100vw;
+  background-size: contain;
 }
 
 .waku02 {
