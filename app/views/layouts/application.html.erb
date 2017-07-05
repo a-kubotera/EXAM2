@@ -46,21 +46,6 @@
               <% end %>
             </li>
           <%end%>
-          <!-- dummyボタン　x2 -->
-          <li>
-            <%= link_to new_picture_path ,remote: true,class:"setLink" do %>
-              <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
-                <span class="hidden-xs">？？？？</span>
-              </i>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_picture_path ,remote: true,class:"setLink" do %>
-              <i class="glyphicon glyphicon-list-alt" aria-hidden="true">
-                <span class="hidden-xs">？？？？</span>
-              </i>
-            <% end %>
-          </li>
           <!-- ログアウトした状態 -->
         <% else %>
           <!-- ログインボタン -->

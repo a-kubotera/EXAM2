@@ -1,20 +1,32 @@
 <div class="modal-dialog">
   <div class="modal-content modal-color">
-  <%= form_for(@picture, authenticity_token: true) do |f| %>
-    <div class="details">
-        <ul class="user_data">
-          <li><%= image_tag @picture.user.avatar,class:"users_avater" %></li>
-          <li><span class="name"><%= @picture.user.name %></span><br>
-              <span class="uid">@<%= @picture.user.uid %></span></li>
-          <li><div class="imgtitle"><%= @picture.title %></div></li>
-        </ul>
-      <div class="img"><%= image_tag @picture.image.url %><%= f.hidden_field :image_cache %></div>
-      <div class="comment">
-        <span class="title">コメント</span>
-        <p><%= @picture.content %></p>
-      </div></div>
-    </div>
-  <% end %>
-</div>
-</div>
+    <%= form_for(@picture, authenticity_token: true) do |f| %>
+      <div class="details">
+        <div class="row">
+          <div class="col-xs-1 avatar"><%= image_tag @picture.user.avatar,class:"users_avater" %></div>
+          <div class="col-xs-3 user_data">
+            <span class="name"><%= @picture.user.name %></span><br>
+            <span class="uid">@<%= @picture.user.uid %></span>
+          </div>
+          <!--
+          <div class="col-xs-offset-2 col-xs-3 col-sm-offset-3 col-sm-2 reset"><%= f.button "リセット", type: :reset,class: "btn btn-warning" %> </div>
+          <div class=" col-xs-2 submit"><%= f.submit class: "btn btn-success" %></div>
+          -->
+        </div>
+        <div class="picturetitle">
+          <span class="title">タイトル</span>
+          <p><%= @picture.title %></p>
+        </div>
+        <div class="img"><%= image_tag @picture.image.url %><%= f.hidden_field :image_cache %></div>
+        <% if @picture.content.present? %>
+        <div class="comment">
+          <span class="title">コメント</span>
+          <p><%= @picture.content %></p>
+        </div>
+        <% else %>
+        <div style="padding-bottom:50px;"></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -35,6 +35,11 @@
   font-size: get_vw($font_size);
 }
 
+@mixin ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 //レスポンシブデザインに横スクロールバーなど不要也！
 body{overflow-x: hidden;}
 .scrollLock{overflow-y: hidden;}
@@ -114,35 +119,13 @@ body{overflow-x: hidden;}
 @mixin viewname{
   padding:0;
   color:black;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  @include ellipsis;
   .name{font-weight: bolder;}
 }
 @mixin viewuid{
   font: italic normal x-small/1.5em Verdana;
   color:gray;
 }
-@mixin viewcomment{
-    border: solid 1px #95ccff;
-    border-radius: 8px;
-    >span.title{
-      background-color: $modal-color;
-      position: absolute;
-      display: inline-block;
-      top: -10px;
-      left: 10px;
-      padding: 0 9px;
-      line-height: 1;
-      font-size: 14px;
-      color: #95ccff;
-      font-weight: bold;
-      }
-    >p{
-      margin: 0;
-      padding: 0;
-    }
-  }
 
 .index_btn{
   padding:18px; //枠線の太さと同じ
@@ -152,8 +135,7 @@ body{overflow-x: hidden;}
   opacity: 0.8;
 }
 
-.index_contents
-{
+.index_contents{
   margin-top:20px;
   height: 60px;
   padding:5px ;
@@ -164,7 +146,7 @@ body{overflow-x: hidden;}
  >p{
     margin: 0;
     padding: 0;
-}
+  }
   .name{
     @include viewname;
   }
@@ -173,6 +155,7 @@ body{overflow-x: hidden;}
   }
   .title{
     padding:5px 0 0 0;
+    @include ellipsis;
   }
 }
 .show_link{
@@ -191,13 +174,21 @@ body{overflow-x: hidden;}
 .users_avater{
   width:50px;
   height: 50px;
+  max-width:250%;
 }
+.users_avaterL{
+  width: 190px;
+}
+
 //詳細画面のlayout
 $modal-color:#fffaf0;
 .modal-color{
     background:$modal-color;
 }
-
+.profile_img{
+    width: 100px;
+    height: 100px;
+}
 //詳細画面のlayout
 $modal-color:#fffaf0;
 .modal-color{
@@ -205,40 +196,55 @@ $modal-color:#fffaf0;
 }
 .details{
   padding:10px;
-  .img{
-    text-align:center;
-    padding-top: 5px;
-  }
-  >ul.user_data{
+  .row{
     border-bottom: 1px solid gray;
-    padding-left:0px;
-    padding-bottom: 5px;
-    >li{
-      display: inline-block;
-      vertical-align: middle;
+    margin:0px;
+      >div{
+      height: 60px;
+      padding-left:0px;
+      }
+      .user_data{
+      margin-left:10px;
+      }
       .name{
-        @include viewname;
+      @include viewname;
       }
       .uid{
-        @include viewuid;
+      @include ellipsis;
+      @include viewuid;
       }
-      .imgtitle{
-        display: inline-block;
-        padding-left: 20px;
-        font-size:16px;
-        font-weight: bold;
+      .reset,.submit{
+        top:10px;
+        text-align: right;
       }
     }
-    .imput_comment{
-
-    }
+  .img{
+  text-align:center;
+  padding-top: 5px;
   }
-  .comment{
-    position: relative;
-    margin: 2em 0;
-    padding: 0.5em 1em;
-    border: solid 1px #95ccff;
-    border-radius: 8px;
+#preview1{
+  text-align: center;
+  padding-top:10px;
+}
+
+  //コメントの表示用
+
+@mixin set_frame_with_title($margin) {
+  position: relative;
+  margin: $margin;
+  padding: 0.5em 1em;
+  border: solid 1px #95ccff;
+  border-radius: 8px;
+}
+
+.comment{
+  @include set_frame_with_title(2em 0);
+}
+.picturetitle{
+  @include set_frame_with_title(20px 0 10px 0);
+}
+.comment,
+.picturetitle{
     >span.title{
       background-color: $modal-color;
       position: absolute;
@@ -257,7 +263,6 @@ $modal-color:#fffaf0;
     }
   }
 }
-
 
 //額縁の設定 未整理
 .img01 {

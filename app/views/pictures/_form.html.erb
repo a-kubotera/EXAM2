@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
 $(function() {
   $('#picture_image').uploadThumbs({
@@ -11,8 +10,9 @@ $(function() {
   <div class="modal-content">
     <%= form_for(@picture, authenticity_token: true) do |f| %>
     <% if @picture.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h2>入力内容にエラーがあります。</h2>
+      以下の<%= @picture.errors.count %>のエラーを修正してください。
       <ul>
         <% @picture.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -20,53 +20,48 @@ $(function() {
       </ul>
     </div>
     <% end %>
-
     <div class="details">
-      <ul class="user_data">
-        <li>
-          <%= image_tag @user.avatar,class:"users_avater" %>
-        </li>
-        <li>
-          <span class="name"><%= @user.name %></span><br>
-          <span class="uid">@<%= @user.uid %></span>
-        </li>
-          <li>
-            <div class=""><p><%= f.text_field :title, class: 'form-control' %></p></div>
-          </li>
-        </ul>
-        <div class="img">
-          <% if @picture.image? %>
-          <div class="thumbnail">
-            <%= image_tag @picture.image.url %>
-          </div>
-          <% else %>
-          <%= f.file_field :image %>
-          <% end %><br>
-          <p id="preview1"></p>
-        </div>
-        <div class="comment">
-          <span class="title">コメント</span>
-          <p><%= f.text_field :content , class: 'form-control' %></p>
-        </div>
+      <div class="row">
+      <div class="col-xs-1 avatar"><%= image_tag @user.avatar,class:"users_avater",style:"" %></div>
+      <div class="col-xs-3 user_data">
+        <span class="name"><%= @user.name %></span><br>
+        <span class="uid">@<%= @user.uid %></span>
       </div>
-      <%= f.hidden_field :image_cache %>
-
-
-      <!-- 追加個所 -->
-      <div class="field">
-        <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
+      <div class="col-xs-offset-2 col-xs-3 col-sm-offset-3 col-sm-2 reset">
         <% if @picture.persisted? && @picture.image? %>
-        <label>
-          <%= f.check_box :remove_image %>
-          画像を削除
-        </label>
+        <%= link_to '削除', picture_path, method: :delete,class:"btn btn-danger", data: { confirm: 'Are you sure?' } %>
+        <% else %>
+        <%= f.button "リセット", type: :reset,class: "btn btn-warning" %>
         <% end %>
       </div>
-      <!-- 追加個所終了 -->
-
-      <div class="actions">
-        <%= f.submit %>
+      <div class=" col-xs-2 submit"><%= f.submit class: "btn btn-success" %></div>
+    </div>
+    <div class="picturetitle">
+      <span class="title">タイトル</span>
+      <p><%= f.text_field :title, class: 'form-control' %></p>
+    </div>
+    <% if @picture.image.blank? %>
+      <div class="upload">
+        <%= f.label :image, class: "btn btn-primary " do%>
+        <i class="glyphicon glyphicon-camera" aria-hidden="true">
+          <span>写真を選ぶ</span>
+        </i>
+        <% end %>
       </div>
+      <%= f.file_field :image, class: "fileInput",style: "display:none;" %>
+    <% else %>
+      <div class="img">
+        <div class="thumbnail">
+          <%= image_tag @picture.image.url %>
+        </div>
+    <% end %>
+    <p id="preview1"></p>
+    <div class="comment">
+      <span class="title">コメント</span>
+      <p><%= f.text_area :content , class: 'form-control set_txtArea' %></p>
+    </div>
+  </div>
+    <%= f.hidden_field :image_cache %>
       <% end %>
     </div>
   </div>

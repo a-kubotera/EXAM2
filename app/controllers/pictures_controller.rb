@@ -29,6 +29,7 @@ class PicturesController < ApplicationController
   def create
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
+    @user = User.find(current_user.id)
     respond_to do |format|
       if @picture.save
         format.html { redirect_to pictures_path, notice: 'User was successfully created.' }
@@ -72,6 +73,7 @@ class PicturesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_picture
       @picture = Picture.find(params[:id])
+      @user = User.find(current_user.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
