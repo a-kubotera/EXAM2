@@ -300,7 +300,6 @@ DEPENDENCIES
   byebug
   cancan
   carrierwave
-  coffee-rails (~> 4.1.0)
   devise
   dotenv-rails
   faker
@@ -329,4 +328,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.15.0
+   1.15.1

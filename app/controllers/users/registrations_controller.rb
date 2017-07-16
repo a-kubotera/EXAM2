@@ -4,7 +4,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
   protected
+  #ユーザー修正が完了した場合はIndexへリダイレクト
   def after_update_path_for(resource)
     pictures_path
   end
+
 end
