@@ -1,12 +1,21 @@
-<section class="main-header">
-  <p class="flash"><%= notice %><%= alert %></p>
-<div class="row topPage ">
-
+<div class="row topPage" style="padding:0;">
+  <%= image_tag 'TopPage.jpg',class:'img-responsive'%>
   <div class="msgBox">
     <p class="title">
-　　く(｀･ω･´) <トップページだよ
+      お気に入りの写真をシェアしよう！
     </p>
-    <%=link_to 'インデックス',pictures_path, class:"btn btn-default btn-sm btn-success " %>
+    <p class="content">
+      写真を撮ること、それは、同じ照準線上に頭、目、心を合わせること。　
+      つまり、生き方だ。
+      <small>(アンリ・カルティエ＝ブレッソン)</small>
+    </p>
+    <p class="buttom">
+      <% if user_signed_in? %>
+      <%=link_to '写真一覧へ',pictures_path, class:"btn btn-default btn-xl btn-success " %>
+      <% else %>
+        <%=link_to 'ログインはこちら',user_session_path, class:"btn btn-default btn-xl btn-success " %>
+        <%=link_to '新規登録する',new_user_registration_path, class:"btn btn-default btn-xl btn-success " %>
+      <% end %>
+    </p>
   </div>
 </div>
-</section>

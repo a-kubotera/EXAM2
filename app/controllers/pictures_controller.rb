@@ -32,7 +32,7 @@ class PicturesController < ApplicationController
     @user = User.find(current_user.id)
     respond_to do |format|
       if @picture.save
-        format.html { redirect_to pictures_path, notice: 'User was successfully created.' }
+        format.html { redirect_to pictures_path, notice: '投稿しました！' }
         format.json { render :show, status: :created, location: @picture }
         format.js { @status = "success"}
         #binding.pry
@@ -40,6 +40,7 @@ class PicturesController < ApplicationController
         format.html { render :new }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
         format.js { @status = "fail" }
+        @is_menu = "notBlank"
         #binding.pry
       end
     end
@@ -50,11 +51,12 @@ class PicturesController < ApplicationController
   def update
     respond_to do |format|
       if @picture.update(picture_params)
-        format.html { redirect_to pictures_path, notice: 'Picture was successfully updated.' }
+        format.html { redirect_to pictures_path, notice: '修正完了しました！' }
         format.json { render :show, status: :ok, location: @picture }
       else
         format.html { render :edit }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
+        @is_menu = "notBlank"
       end
     end
   end
@@ -64,7 +66,7 @@ class PicturesController < ApplicationController
   def destroy
     @picture.destroy
     respond_to do |format|
-      format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
+      format.html { redirect_to pictures_url, notice: '削除が完了しました！' }
       format.json { head :no_content }
     end
   end

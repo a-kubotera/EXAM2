@@ -1,19 +1,68 @@
+<script>
+$(document).on('change', ':file', function() {
+    var input = $(this),
+    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.parent().parent().next(':text').val(label);
+    var filename = document.getElementById("filename");
+    if(filename)
+    {
+      $('#defAvater').hide();
+    }
+});
+$(function(){
+  //画像ファイルプレビュー表示のイベント追加 fileを選択時に発火するイベントを登録
+  $('form').on('change', 'input[type="file"]', function(e) {
+    var file = e.target.files[0],
+        reader = new FileReader(),
+        $preview = $(".preview");
+        t = this;
+    // 画像ファイル以外の場合は何もしない
+    if(file.type.indexOf("image") < 0){
+      return false;
+    }
 
-<div class="container">
+    // ファイル読み込みが完了した際のイベント登録
+    reader.onload = (function(file) {
+      return function(e) {
+        //既存のプレビューを削除
+        $preview.empty();
+        // .prevewの領域の中にロードした画像を表示するimageタグを追加
+        $preview.append($('<img>').attr({
+                  src: e.target.result,
+                  class: "users_avaterL",
+                  title: file.name
+              }));
+      };
+    })(file);
+    reader.readAsDataURL(file);
+  });
+});
+</script>
+
+<section class="menu_on">
   <h2>マイページ</h2>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <% if devise_error_messages!.present? %>
-    <div class="alert alert-danger " role="alert">
-       <span class=""><%= devise_error_messages! %></span>
+    <div class="alert alert-danger errMsg" role="alert">
+       <p class="errmsg"><%= devise_error_messages! %></p>
     </div>
   <% end %>
   <div class="row">
-    <div class="col-xs-12 col-sm-3" style="text-align:center">
-      <%= profile_img(@user) if profile_img(@user) %>
-      <p><%= f.file_field :avatar%></p>
+    <div class="col-xs-12 col-sm-3" style="text-align:center;padding:0;">
+      <p class="" id="defAvater"><%= profile_img(@user) if profile_img(@user) %></p>
+      <p class="preview"></p>
+      <div class="input-group">
+          <label class="input-group-btn">
+              <span class="btn btn-primary glyphicon glyphicon-camera setting" aria-hidden="true">
+                <%= f.file_field :avatar, class: "fileInput",style: "display:none;"%>
+              </span>
+          </label>
+          <input type="text" class="form-control" readonly="" id="filename">
+      </div>
       <%= f.hidden_field :avatar_cache %>
     </div>
-    <div class="col-xs-12 col-sm-9">
+    <div class="col-xs-12 col-sm-9 userinfo">
       <p>
         <span class="title">メールアドレス</span>
         <%= f.email_field :email, autofocus: true, class: "form-control" %>
@@ -28,30 +77,24 @@
         <% end %>
         <p>
           <span class="title">パスワード</span>
-          <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
-          <span class="info">変更したい場合だけ入力してください(<%= @minimum_password_length %>文字以上)</span>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control",placeholder:"変更したい場合だけ入力してください。"  %>
         </p>
         <p>
           <span class="title">パスワード再入力</span>
-          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-          <span class="info">新しいパスワードをもう一度入力してください。</span>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control",placeholder:"新しいパスワードをもう一度入力してください。" %>
         </p>
         <p>
-          <span class="title"><%= f.label :current_password %></span>
+          <span class="title">現在のパスワード</span>
           <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
         </p>
-
       <% end %>
-
     </div>
     <div class="col-xs-12 actions">
       <%= link_to "TOPへ戻る", :back, class:'btn btn-default btn_size' %>
       <%= f.submit "更新する", class:'btn btn-primary btn_size'%>
     </div>
-</div>
   <% end %>
-  <div class="row">
-    <h3>このアカウントを削除する場合はこのボタンをクリック！</h3>
-    <p><%= button_to "アカウントの削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？?" }, method: :delete, class:'btn btn-danger btn_size' %></p>
   </div>
-</div>
+<div class="" ><h4>このアカウントを削除する場合はこのボタンをクリック<h4></div>
+<div class="" ><%= button_to "アカウントの削除", registration_path(resource_name), data: { confirm: "本当に削除してもよろしいですか？?" }, method: :delete, class:'btn btn-danger btn_size' %></div>
+</section>

@@ -1,4 +1,6 @@
 //application / サイト共通設定
+
+
 //twitter bootstrap アイコン用フォント
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -34,7 +36,6 @@
   font-size: $font_size * 1px;
   font-size: get_vw($font_size);
 }
-
 @mixin ellipsis{
   overflow: hidden;
   white-space: nowrap;
@@ -43,6 +44,15 @@
 //レスポンシブデザインに横スクロールバーなど不要也！
 body{overflow-x: hidden;}
 .scrollLock{overflow-y: hidden;}
+.menu_on{
+  padding-top:70px;
+  padding-left:5%;
+  padding-right: 5%;
+}
+.menu_off{
+  padding-left:5%;
+  padding-right: 5%;
+}
 //ヘッダー設定
 .headerArea{
   background:green;
@@ -50,10 +60,11 @@ body{overflow-x: hidden;}
   position:fixed;
   display:block;
   font-size:large;
-  width:100%;
+  width:95%;
   height:50px;
   margin:10px 0px;
   padding-top:10px;
+  padding-left:30px;
   z-index: 100;
   >ul{
     margin:0px;
@@ -90,9 +101,15 @@ body{overflow-x: hidden;}
     background:aliceblue;
 }
 //エラーメッセージの追加設定
+
 .errMsg{
-  font-size:large;
   font-weight:bolder;
+  h2{
+    @include fz_vw;
+  }
+  li{
+    @include fz_vw(8);
+  }
 }
 
 
@@ -176,8 +193,34 @@ body{overflow-x: hidden;}
   height: 50px;
   max-width:250%;
 }
+/* 画面サイズの横幅が 768px より小さい場合に適用 */
 .users_avaterL{
-  width: 190px;
+  margin-left:auto;
+  margin-right:auto;
+  width: 170px;
+  background-size: cover;
+
+}
+@media screen and (max-width: 768px) {
+  .users_avaterL{
+    width: 180px;
+  }
+  .input-group{
+    margin-left:auto;
+    margin-right:auto;
+    width: 200px;
+  }
+}
+.setting{
+  top: 0;
+}
+.userinfo{
+  .title{
+    font-weight: bold;
+  }
+}
+.actions{
+  text-align: center;
 }
 
 //詳細画面のlayout
@@ -222,7 +265,7 @@ $modal-color:#fffaf0;
   text-align:center;
   padding-top: 5px;
   }
-#preview1{
+.preview{
   text-align: center;
   padding-top:10px;
 }
@@ -263,6 +306,10 @@ $modal-color:#fffaf0;
     }
   }
 }
+.black{
+  background: black;
+}
+
 
 //額縁の設定 未整理
 .img01 {
@@ -338,4 +385,32 @@ $modal-color:#fffaf0;
   background: -webkit-linear-gradient(to right bottom, rgba(107, 84, 12, 0.5) 0%, rgba(248, 212, 119, 0.18) 50%,rgba(104, 107, 70, 0.7) 100%);; /* Chrome10+,Safari5.1+ */
   background: -ms-linear-gradient(to right bottom, rgba(107, 84, 12, 0.5) 0%, rgba(248, 212, 119, 0.18) 50%,rgba(104, 107, 70, 0.7) 100%);; /* IE10+ */
   background: linear-gradient(to right bottom, rgba(107, 84, 12, 0.5) 0%, rgba(248, 212, 119, 0.18) 50%,rgba(104, 107, 70, 0.7) 100%); /* W3C */
+}
+
+//トップページ
+.topPage{
+  position: relative;
+  &img{width:100%;}
+  .msgBox{
+    @include myFont;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    color: white;
+    font-weight: bold;
+    margin:0;
+    padding:0;
+    .title{
+      @include fz_vw(13);
+      }
+    .content{
+      margin-left:40%;
+      @include fz_vw(6);
+      @include acceptBR;
+    }
+    .buttom{
+      margin-left:40%;
+      margin-top:10%;
+    }
+  }
 }

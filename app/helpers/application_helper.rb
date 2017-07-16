@@ -1,6 +1,6 @@
 module ApplicationHelper
   def profile_img(user)
-    return image_tag(user.avatar, alt: user.name,class:"profile_img") if user.avatar?
+    return image_tag(user.avatar, alt: user.name,class:"users_avaterL") if user.avatar?
     #SNSログイン Avatar
     unless user.provider.blank?
       img_url = user.image_url

@@ -1,7 +1,37 @@
 <script type="text/javascript">
-$(function() {
-  $('#picture_image').uploadThumbs({
-    position: '#preview1'
+$(function(){
+  //画像ファイルプレビュー表示のイベント追加 fileを選択時に発火するイベントを登録
+  $('form').on('change', 'input[type="file"]', function(e) {
+    var file = e.target.files[0],
+        reader = new FileReader(),
+        $preview = $(".preview");
+        t = this;
+    // 画像ファイル以外の場合は何もしない
+    if(file.type.indexOf("image") < 0){
+      return false;
+    }
+
+    // ファイル読み込みが完了した際のイベント登録
+    reader.onload = (function(file) {
+      return function(e) {
+        //既存のプレビューを削除
+        $preview.empty();
+        // .prevewの領域の中にロードした画像を表示するimageタグを追加
+        $preview.append($('<img>').attr({
+                  src: e.target.result,
+                  class: "preview",
+                  title: file.name,
+                  id:"preview"
+              }));
+      };
+    })(file);
+    reader.readAsDataURL(file);
+  });
+
+  $("#reset").on("click", function(){
+    $("#preview").remove();
+    $("#thumbnail").remove();
+    $("#picture_image_cache").val('');
   });
 });
 </script>
@@ -29,9 +59,9 @@ $(function() {
       </div>
       <div class="col-xs-offset-2 col-xs-3 col-sm-offset-3 col-sm-2 reset">
         <% if @picture.persisted? && @picture.image? %>
-        <%= link_to '削除', picture_path, method: :delete,class:"btn btn-danger", data: { confirm: 'Are you sure?' } %>
+          <%= link_to '削除', picture_path, method: :delete,class:"btn btn-danger", data: { confirm: '本当に削除してもよろしいですか?' } %>
         <% else %>
-        <%= f.button "リセット", type: :reset,class: "btn btn-warning" %>
+          <%= f.button "リセット", type: :reset,class: "btn btn-warning",id:"reset" %>
         <% end %>
       </div>
       <div class=" col-xs-2 submit"><%= f.submit class: "btn btn-success" %></div>
@@ -40,22 +70,23 @@ $(function() {
       <span class="title">タイトル</span>
       <p><%= f.text_field :title, class: 'form-control' %></p>
     </div>
+    <div class="upload">
+      <%= f.label :image, class: "btn btn-primary " do%>
+      <i class="glyphicon glyphicon-camera" aria-hidden="true">
+        <span>写真を選ぶ</span>
+        <%= f.file_field :image,style: "display:none;" %>
+      </i>
+      <% end %>
+    </div>
     <% if @picture.image.blank? %>
-      <div class="upload">
-        <%= f.label :image, class: "btn btn-primary " do%>
-        <i class="glyphicon glyphicon-camera" aria-hidden="true">
-          <span>写真を選ぶ</span>
-        </i>
-        <% end %>
-      </div>
-      <%= f.file_field :image, class: "fileInput",style: "display:none;" %>
+
     <% else %>
       <div class="img">
-        <div class="thumbnail">
+        <div class="thumbnail" id="thumbnail">
           <%= image_tag @picture.image.url %>
         </div>
     <% end %>
-    <p id="preview1"></p>
+    <div class="preview"></div>
     <div class="comment">
       <span class="title">コメント</span>
       <p><%= f.text_area :content , class: 'form-control set_txtArea' %></p>

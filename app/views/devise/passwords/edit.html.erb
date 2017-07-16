@@ -1,25 +1,24 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+<h2>パスワード変更</h2>
+<div class="row">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <% if devise_error_messages!.present? %>
+    <div class="alert alert-danger errMsg" role="alert">
+       <p class="errmsg"><%= devise_error_messages! %></p>
+    </div>
+  <% end %>
   <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+    <div class="col-xs-12 col-sm-9 userinfo">
+      <p>
+        <span class="title">新しいパスワード</span>
+        <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control",placeholder:"#{@minimum_password_length}文字以上で入力してください。"  %>
+      </p>
+      <p>
+        <span class="title">パスワードの確認入力</span>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control",placeholder:"パスワードをもう一度入力してください。" %>
+      </p>
+      <div class="col-xs-12 actions">
+        <%= f.button "　　リセット　　", type: :reset,class: "btn btn-warning" %>
+        <%= f.submit "パスワード変更", class:'btn btn-primary btn_size'%>
+      </div>
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

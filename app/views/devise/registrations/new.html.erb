@@ -1,29 +1,46 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<section class="menu_off">
+  <h2>新規ユーザー登録</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <% if devise_error_messages!.present? %>
+    <div class="alert alert-danger errMsg" role="alert">
+       <p class="errmsg"><%= devise_error_messages! %></p>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-3" style="text-align:center;padding:0;">
+      <p class="users_avaterL"><%= profile_img(@user) if profile_img(@user) %></p>
+      <div class="input-group">
+          <label class="input-group-btn">
+              <span class="btn btn-primary glyphicon glyphicon-camera setting" aria-hidden="true">
+                <%= f.file_field :avatar, class: "fileInput",style: "display:none;"%>
+              </span>
+          </label>
+          <input type="text" class="form-control" readonly="">
+      </div>
+      <%= f.hidden_field :avatar_cache %>
+    </div>
+    <div class="col-xs-12 col-sm-9 userinfo">
+      <p>
+        <span class="title">メールアドレス</span>
+        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      </p>
+      <p>
+        <span class="title">お名前</span>
+        <%= f.text_field :name, autocomplete: "off",class: "form-control" %>
+      </p>
+        <p>
+          <span class="title">パスワード</span>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control",placeholder:"#{@minimum_password_length}文字以上で入力してください。"  %>
+        </p>
+        <p>
+          <span class="title">パスワード再入力</span>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control",placeholder:"パスワードをもう一度入力してください。" %>
+        </p>
+    </div>
+    <div class="col-xs-12 actions">
+      <%= link_to "ログインへ戻る", :back, class:'btn btn-default btn_size' %>
+      <%= f.submit "登録する", class:'btn btn-primary btn_size'%>
+    </div>
+  <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>
