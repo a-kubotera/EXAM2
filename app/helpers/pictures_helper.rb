@@ -15,11 +15,11 @@ module PicturesHelper
       return @name
   end
 
-  def your_picture(picture)
+  def users_picture(picture)
     @picture = picture.image.url
     @name = picture.name
-    if @picture.blank?
-      @picture = erased.png
+    unless picture.image?
+      @picture = "erased.png"
       @name = "Herokuに消されてるよ！"
     end
       return image_tag(@picture, alt: @name)

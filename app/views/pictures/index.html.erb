@@ -13,7 +13,8 @@
       <div class="show_link">
         <%= link_to picture,remote:true do %>
           <div class="set_Picture img01 waku02 bImg shadow bWidth">
-            <%= image_tag picture.image.url,class:"image-404-replace"%>
+            <%= users_picture(picture) %>
+
           </div>
          <% end %>
       </div>
