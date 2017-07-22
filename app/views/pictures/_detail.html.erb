@@ -3,7 +3,13 @@
     <%= form_for(@picture, authenticity_token: true) do |f| %>
       <div class="details">
         <div class="row">
-          <div class="col-xs-1 avatar"><%= image_tag @picture.user.avatar,class:"users_avater" %></div>
+          <div class="col-xs-1 avatar">
+            <% if @picture.image? %>
+            <%= image_tag @picture.user.avatar,class:"users_avater" %>
+            <% else %>
+            <%= image_tag "no_image.png",class:"users_avater" %>
+            <% end %>
+          </div>
           <div class="col-xs-3 user_data">
             <span class="name"><%= @picture.user.name %></span><br>
             <span class="uid">@<%= @picture.user.uid %></span>
@@ -17,7 +23,13 @@
           <span class="title">タイトル</span>
           <p><%= @picture.title %></p>
         </div>
-        <div class="img"><%= image_tag @picture.image.url %><%= f.hidden_field :image_cache %></div>
+        <div class="img">
+          <% if @picture.image? %>
+          <%= image_tag @picture.image.url %>
+          <% else %>
+          <%= image_tag "erased.png" %>
+          <% end %>
+          <%= f.hidden_field :image_cache %></div>
         <% if @picture.content.present? %>
         <div class="comment">
           <span class="title">コメント</span>
