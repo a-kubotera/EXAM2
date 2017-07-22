@@ -233,7 +233,6 @@ $modal-color:#fffaf0;
     height: 100px;
 }
 //詳細画面のlayout
-$modal-color:#fffaf0;
 .modal-color{
     background:$modal-color;
 }
@@ -404,13 +403,15 @@ $modal-color:#fffaf0;
       @include fz_vw(13);
       }
     .content{
-      margin-left:40%;
       @include fz_vw(6);
       @include acceptBR;
+      word-break: keep-all;
+      padding-right: 10px;
+      @media screen and (min-width: 960px) {
+      height: 220px;
+      }
     }
     .buttom{
-      margin-left:40%;
-      margin-top:10%;
     }
   }
 }

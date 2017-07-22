@@ -2,12 +2,16 @@
   <%= image_tag 'TopPage.jpg',class:'img-responsive'%>
   <div class="msgBox">
     <p class="title">
-      お気に入りの写真をシェアしよう！
+      お気に入りを写真に撮ってシェアしてみよう！
     </p>
+    <div class="
+      col-xs-offset-1 col-xs-10
+      col-md-offset-4 col-md-8
+      ">
     <p class="content">
-      文章1
-      <small>(補足)</small>
+      <%= quote_collections() %>
     </p>
+
     <p class="buttom">
       <% if user_signed_in? %>
       <%=link_to '写真一覧へ',pictures_path, class:"btn btn-default btn-xl btn-success " %>
@@ -16,5 +20,6 @@
         <%=link_to '新規登録する',new_user_registration_path, class:"btn btn-default btn-xl btn-success " %>
       <% end %>
     </p>
+    </div>
   </div>
 </div>
