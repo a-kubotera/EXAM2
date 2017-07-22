@@ -4,11 +4,7 @@
       <div class="details">
         <div class="row">
           <div class="col-xs-1 avatar">
-            <% if @picture.image? %>
               <%= image_tag @picture.user.avatar,class:"users_avater" %>
-            <% else %>
-            <%= image_tag "no_image.png",class:"users_avater" %>
-            <% end %>
           </div>
           <div class="col-xs-3 user_data">
             <span class="name"><%= @picture.user.name %></span><br>
