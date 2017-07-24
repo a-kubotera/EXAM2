@@ -31,7 +31,7 @@
     <% if current_user.id == picture.user_id %>
     <div class="index_btn">
       <span class=""><%= link_to '編集', edit_picture_path(picture), remote: true, class: "btn btn-warning" %></span>
-      <span class=""><%= link_to '削除', picture, method: :delete,class:"btn btn-danger", data: { confirm: 'Are you sure?' } %></span>
+      <span class=""><%= link_to '削除', picture, method: :delete,class:"btn btn-danger", data: { confirm: '削除しますか？' } %></span>
     </div>
     <% end %>
   </div>

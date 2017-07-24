@@ -1,5 +1,6 @@
 module TopHelper
   def quote_collections()
+    if notice.blank?
     message = [
       "写真を撮ること、それは、同じ照準線上に頭、目、心を合わせること。つまり、生き方だ。
       <small>(アンリ・カルティエ＝ブレッソン)<small>
@@ -25,6 +26,11 @@ module TopHelper
       "To take photographs means to recognize — simultaneously and within a fraction of a second — both the fact itself and the rigorous organization of visually perceived forms that give it meaning. It is putting one’s head, one’s eye and one’s heart on the same axis.
       <small>(Henri Cartier Bresson)</small>"
     ].sample
+    else
+      message =
+      "ご登録ありがとうございました。
+      本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。"
+    end
     return message.html_safe
   end
 end
